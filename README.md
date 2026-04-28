@@ -282,7 +282,19 @@ DELETE /api/deployments/{app_name}
 POST /api/deployments/{app_name}/health
 GET /api/audit-logs
 ```
+## Screenshots
 
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### Deploy Container
+![Deploy](screenshots/deploy.png)
+
+### Audit Logs
+![Audit Logs](screenshots/audit_logs.png)
+
+### API Docs
+![API Docs](screenshots/api_docs.png)
 ---
 
 ## What I Learned
