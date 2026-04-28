@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Local Deploy Manager</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-cube"></div>
+            <div>
+                <div class="logo-title">Local Deploy Manager</div>
+                <div class="logo-subtitle">Docker Control Plane</div>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a href="/ui">Dashboard</a>
+            <a href="/ui/deploy">Deploy Container</a>
+            <a href="/ui/audit/logs">Audit Logs</a>
+            <a href="/docs" target="_blank">API Docs</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        {% block content %}{% endblock %}
+    </main>
+</div>
+</body>
+</html>

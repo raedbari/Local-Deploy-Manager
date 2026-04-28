@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header">
+    <div>
+        <h1>Audit Logs</h1>
+        <p>Track deployment, lifecycle, health check, and failure events.</p>
+    </div>
+    <a class="action-btn" href="/ui">Back to Dashboard</a>
+</div>
+
+<div class="card table-card">
+    <h2 class="section-title">Recent Events</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Action</th>
+            <th>App Name</th>
+            <th>Status</th>
+            <th>Message</th>
+            <th>Created At</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for log in logs %}
+        <tr>
+            <td class="mono">{{ log.id }}</td>
+            <td class="mono">{{ log.action }}</td>
+            <td class="mono">{{ log.app_name or "-" }}</td>
+            <td>
+                <span class="badge {{ log.status }}">{{ log.status }}</span>
+            </td>
+            <td>{{ log.message or "-" }}</td>
+            <td class="mono">{{ log.created_at }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="6">No audit logs yet.</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

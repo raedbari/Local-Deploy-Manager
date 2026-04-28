@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header">
+    <div>
+        <h1>Container Logs</h1>
+        <p class="mono">{{ app_name }}</p>
+    </div>
+    <a class="action-btn" href="/ui">Back to Dashboard</a>
+</div>
+
+<div class="card">
+    <pre class="terminal">{{ logs }}</pre>
+</div>
+{% endblock %}

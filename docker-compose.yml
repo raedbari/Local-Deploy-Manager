@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16
+    container_name: local-deploy-manager-db
+    environment:
+      POSTGRES_DB: deploy_manager
+      POSTGRES_USER: deploy_user
+      POSTGRES_PASSWORD: deploy_pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - deploy-manager-db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  deploy-manager-db-data:

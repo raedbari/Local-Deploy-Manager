@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header">
+    <div>
+        <h1>Local Deploy Manager</h1>
+        <p>Deploy, control, monitor, and audit Docker containers locally.</p>
+    </div>
+    <a class="primary-btn" href="/ui/deploy">Deploy Container</a>
+</div>
+
+<div class="grid stats">
+    <div class="card">
+        <div class="stat-label">Running Containers</div>
+        <div class="stat-value">{{ running_count }}</div>
+    </div>
+
+    <div class="card">
+        <div class="stat-label">Failed Deployments</div>
+        <div class="stat-value">{{ failed_count }}</div>
+    </div>
+
+    <div class="card">
+        <div class="stat-label">Healthy Apps</div>
+        <div class="stat-value">{{ healthy_count }}</div>
+    </div>
+
+    <div class="card">
+        <div class="stat-label">Audit Events</div>
+        <div class="stat-value">{{ audit_count }}</div>
+    </div>
+</div>
+
+<div class="card table-card">
+    <h2 class="section-title">Managed Deployments</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>App</th>
+            <th>Image</th>
+            <th>Host Port</th>
+            <th>Container Port</th>
+            <th>Status</th>
+            <th>Health</th>
+            <th>Limits</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for d in deployments %}
+        <tr>
+            <td class="mono">{{ d.app_name }}</td>
+            <td class="mono">{{ d.image }}</td>
+            <td class="mono">{{ d.host_port }}</td>
+            <td class="mono">{{ d.container_port }}</td>
+            <td>
+                <span class="badge {{ d.status }}">{{ d.status }}</span>
+            </td>
+            <td>
+                <span class="badge {{ d.health_status or 'none' }}">
+                    {{ d.health_status or "none" }}
+                </span>
+            </td>
+            <td class="mono">
+                {{ d.memory_limit or "-" }} / {{ d.cpu_limit or "-" }} CPU
+            </td>
+            <td>
+                <div class="actions">
+                    <a class="action-btn" href="/ui/{{ d.app_name }}/logs">Logs</a>
+
+                    <form method="post" action="/ui/{{ d.app_name }}/health">
+                        <button class="action-btn" type="submit">Health</button>
+                    </form>
+
+                    <form method="post" action="/ui/{{ d.app_name }}/start">
+                        <button class="action-btn" type="submit">Start</button>
+                    </form>
+
+                    <form method="post" action="/ui/{{ d.app_name }}/stop">
+                        <button class="action-btn" type="submit">Stop</button>
+                    </form>
+
+                    <form method="post" action="/ui/{{ d.app_name }}/restart">
+                        <button class="action-btn" type="submit">Restart</button>
+                    </form>
+
+                    <form method="post" action="/ui/{{ d.app_name }}/delete">
+                        <button class="danger-btn" type="submit">Delete</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="8">No deployments yet.</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
